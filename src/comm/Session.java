@@ -6,7 +6,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.UUID;
+
+import model.Words;
 
 
 public class Session extends Thread {
@@ -18,13 +21,20 @@ public class Session extends Thread {
 	private BufferedWriter writer;
 	
 	private OnMessageListener listener;
+	
+	private ArrayList<Words> words;
+	
+	public ArrayList<Words> getWords() {
+		return words;
+	}
 
 	public Session(Socket socket) {
+		words = new ArrayList<Words>();
 		this.socket = socket;
 		id = UUID.randomUUID().toString();
 
 	}
-
+	
 	@Override
 	public void run() {
 		try {
@@ -34,12 +44,24 @@ public class Session extends Thread {
 			while(true) {
 				String line = reader.readLine();
 				System.out.println(line);
-				listener.onMessage(line);
+				if(line.startsWith(":")) {
+					listener.onMessage(line+"/"+id);
+					listener.onStop(id);
+				}else if(line.startsWith("*")) {
+					listener.onMessage(line+"/"+id);
+					
+				}	
+				
 			}
 			
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
+	}
+	
+	public void addWords(String[] msg){
+		Words word = new Words(msg[0], msg[1],msg[2], msg[3]);
+		words.add(word);
 	}
 	
 	
@@ -53,8 +75,13 @@ public class Session extends Thread {
 		this.listener = listener;
 	}
 	
+	public String getIdd() {
+		return id;
+	}
+
 	public interface OnMessageListener{
 		void onMessage(String line);
+		void onStop(String line);
 	}
 
 }
