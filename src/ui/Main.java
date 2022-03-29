@@ -28,4 +28,10 @@ public class Main implements Session.OnMessageListener{
 		
 	}
 
+	@Override
+	public void onComparate() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

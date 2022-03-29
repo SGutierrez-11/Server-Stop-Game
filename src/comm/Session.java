@@ -49,7 +49,7 @@ public class Session extends Thread {
 					listener.onStop(id);
 				}else if(line.startsWith("*")) {
 					listener.onMessage(line+"/"+id);
-					
+					listener.onComparate();
 				}	
 				
 			}
@@ -82,6 +82,7 @@ public class Session extends Thread {
 	public interface OnMessageListener{
 		void onMessage(String line);
 		void onStop(String line);
+		void onComparate();
 	}
 
 }

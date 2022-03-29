@@ -114,4 +114,12 @@ public class TCPConnection extends Thread implements Session.OnMessageListener{
 		}
 	}
 
+	@Override
+	public void onComparate() {
+		Session p1 = sessions.get(0);
+		Session p2 = sessions.get(1);
+		
+	
+		}
+
 }
