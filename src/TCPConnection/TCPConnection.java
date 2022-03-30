@@ -119,7 +119,71 @@ public class TCPConnection extends Thread implements Session.OnMessageListener{
 		Session p1 = sessions.get(0);
 		Session p2 = sessions.get(1);
 		
-	
+		String[] n = {"100","100","100","100"};
+		String[] m = {"100","100","100","100"};
+		
+		if(p1.getWords().get(0).getName().equals(p2.getWords().get(0).getName())) {
+			n[0]="50";
+			m[0]="50";
 		}
+		if(p1.getWords().get(0).getAnimal().equals(p2.getWords().get(0).getAnimal())) {
+			n[1]="50";
+			m[1]="50";
+		}
+		if(p1.getWords().get(0).getCountry().equals(p2.getWords().get(0).getCountry())) {
+			n[2]="50";
+			m[2]="50";
+		}
+		if(p1.getWords().get(0).getThing().equals(p2.getWords().get(0).getThing())) {
+			n[3]="50";
+			m[3]="50";
+		}
+		
+		if(p1.getWords().get(0).getName().equals("") || p1.getWords().get(0).getName().equals(null)) {
+			n[0]="0";
+		}
+		
+		if(p2.getWords().get(0).getName().equals("") || p2.getWords().get(0).getName().equals(null)) {
+			m[0]="0";
+		}
+		
+		if(p1.getWords().get(0).getAnimal().equals("") || p1.getWords().get(0).getAnimal().equals(null)) {
+			n[1]="0";
+		}
+		
+		if(p2.getWords().get(0).getAnimal().equals("") || p2.getWords().get(0).getAnimal().equals(null)) {
+			m[1]="0";
+		}
+		
+		if(p1.getWords().get(0).getCountry().equals("") || p1.getWords().get(0).getCountry().equals(null)) {
+			n[2]="0";
+		}
+		if(p2.getWords().get(0).getCountry().equals("") || p2.getWords().get(0).getCountry().equals(null)) {
+			m[2]="0";
+		}
+		
+		if(p1.getWords().get(0).getThing().equals("") || p1.getWords().get(0).getThing().equals(null)) {
+			n[3]="0";
+		}
+		if(p2.getWords().get(0).getThing().equals("") || p2.getWords().get(0).getThing().equals(null)) {
+			m[3]="0";
+		}
+	}
+	
+	public void sendBroadCast3(String[] n, String[] m) throws IOException {
+		Session p1 = sessions.get(0);
+		Session p2 = sessions.get(1);
+		
+		String x = "";
+		String y="";
+		for(int i=0; i<n.length;i++) {
+			x += n[i];
+			y += m[i];
+		}
+		p1.sendMessage(x);
+		p2.sendMessage(y);
+		
+	}
+	
 
 }
