@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Random;
 
 import comm.Session;
 import model.Words;
@@ -42,8 +43,13 @@ public class TCPConnection extends Thread implements Session.OnMessageListener{
 					sessions.add(session);
 					
 					if(sessions.size()==2) {
+						Random random = new Random();
+
+				        char randomizedCharacter = (char) (random.nextInt(26) + 'A');
+				        System.out.println("Generated Random Character: " + randomizedCharacter);
+				        
 						for(Session s: sessions) {
-							s.sendMessage("start");
+							s.sendMessage("start:"+randomizedCharacter);
 						}
 					}
 				}	
@@ -174,12 +180,12 @@ public class TCPConnection extends Thread implements Session.OnMessageListener{
 		Session p1 = sessions.get(0);
 		Session p2 = sessions.get(1);
 		
-		String x = "";
+		String x = ":"+p1.getWords().get(0).getName()+";"+n[0]+
+				":"+p1.getWords().get(0).getAnimal()+";"+n[1]+
+				":"+p1.getWords().get(0).getCountry()+";"+n[2]+
+				":"+p1.getWords().get(0).getThing()+";"+n[3];
 		String y="";
-		for(int i=0; i<n.length;i++) {
-			x += n[i];
-			y += m[i];
-		}
+		
 		p1.sendMessage(x);
 		p2.sendMessage(y);
 		
