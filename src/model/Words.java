@@ -6,6 +6,8 @@ public class Words {
 	private String country;
 	private String thing;
 	
+	private String type="Words";
+	
 	public Words(String name, String animal, String country, String thing) {
 		this.name=name;
 		this.animal=animal;

@@ -14,6 +14,8 @@ import model.Words;
 
 public class Session extends Thread {
 
+	
+
 	private Socket socket;
 	private String id;
 	
@@ -45,10 +47,10 @@ public class Session extends Thread {
 				String line = reader.readLine();
 				System.out.println(line);
 				if(line.startsWith(":")) {
-					listener.onMessage(line+"/"+id);
-					listener.onStop(id);
+					listener.onMessage(line+"/"+socket.getPort());
+					listener.onStop(socket.getPort());
 				}else if(line.startsWith("*")) {
-					listener.onMessage(line+"/"+id);
+					listener.onMessage(line+"/"+socket.getPort());
 					listener.onComparate();
 				}	
 				
@@ -60,7 +62,7 @@ public class Session extends Thread {
 	}
 	
 	public void addWords(String[] msg){
-		Words word = new Words(msg[0], msg[1],msg[2], msg[3]);
+		Words word = new Words(msg[1], msg[2],msg[3], msg[4]);
 		words.add(word);
 	}
 	
@@ -81,8 +83,17 @@ public class Session extends Thread {
 
 	public interface OnMessageListener{
 		void onMessage(String line);
-		void onStop(String line);
+		void onStop(int line);
 		void onComparate();
+	}
+	
+	
+	public Socket getSocket() {
+		return socket;
+	}
+
+	public void setSocket(Socket socket) {
+		this.socket = socket;
 	}
 
 }

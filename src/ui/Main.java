@@ -23,7 +23,7 @@ public class Main implements Session.OnMessageListener{
 	}
 
 	@Override
-	public void onStop(String line) {
+	public void onStop(int line) {
 		// TODO Auto-generated method stub
 		
 	}
