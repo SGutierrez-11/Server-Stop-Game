@@ -6,6 +6,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.google.gson.Gson;
+
 import comm.Session;
 import model.Playing;
 import model.Words;
@@ -71,7 +73,19 @@ public class TCPConnection extends Thread implements Session.OnMessageListener{
 				pos=true;
 			}
 		}
-		boolean pos2 = false;
+		
+		
+		
+		
+		
+		
+		Gson gson = new Gson();
+		String json = gson.toJson(line);
+		
+		
+		
+		
+		/*boolean pos2 = false;
 		boolean pos3 = false;
 		int k=0;
 		for(int i=0;i<word.length && !pos3;i++) {
@@ -86,7 +100,7 @@ public class TCPConnection extends Thread implements Session.OnMessageListener{
 					pos2=true;
 				}
 			}
-		}
+		}*/
 		try {
 			sendBroadCast(word, id);
 		} catch (IOException e) {
